@@ -1,10 +1,12 @@
+from turtle import width
 import cv2 as cv
 import numpy as np
 import random as rand
+import time
 
-# use a common factor of width and height for pixel size to fit evenly
+# use a common factor of height and width for pixel size to fit evenly
 # https://www.calculatorsoup.com/calculators/math/commonfactors.php
-PIXEL_SIZE = 15 
+PIXEL_SIZE = 15
 HEIGHT = 1080
 WIDTH = 1920
 
@@ -41,15 +43,15 @@ def UTColors():
 
 def UTGradient():
     # OpenCV uses (blue, green, red)
-    gradientWeight = 0.4
+    gradientWeight = 0.7
     colors = [
         (74,36,0),      # Oxford Blue           
         (101,50,0),     # Dark Midnight Blue    
         (137,68,0),     # Midnight Blue     
 
-        (79,79,79),     # DarkGrey              
-        (105,105,105),  # DimGrey               
-        (128,128,128),  # Grey
+        #(79,79,79),     # DarkGrey              
+        #(105,105,105),  # DimGrey               
+        #(128,128,128),  # Grey
 
         (57,177,212),   # American Gold         
         (12,135,185),   # Dark Goldenrod        
@@ -69,22 +71,25 @@ def UTGradient():
             #    + " = " + str((randomNumber + iGradientOffset + jGradientOffset)/(1 + gradientWeight*2)) + "\t\t\t==== " + str(randomSelection))
             pixelArray[i][j] = (colors[randomSelection])
 
-# generate pixel color information by uncommenting one function
-#Rainbow()
-#UTColors()
-UTGradient()
-
 print("Pixel dimensions: " + str(PIXEL_WIDTH) + ", " + str(PIXEL_HEIGHT))
 image = np.zeros((HEIGHT, WIDTH, 3), dtype='uint8')
 
-# apply pixel array to image
-for i in range(PIXEL_HEIGHT):
-    for j in range(PIXEL_WIDTH):
-        #print(pixelArray[i][j])
-        image[i*PIXEL_SIZE:(i*PIXEL_SIZE)+PIXEL_SIZE, j*PIXEL_SIZE:(j*PIXEL_SIZE)+PIXEL_SIZE] = pixelArray[i][j]
 
-# saves images to current path and displays it
-cv.imwrite('./generatedImage.jpg', image)
-cv.imshow('Generator', image)
+while True:
+    UTGradient()
 
-cv.waitKey(0)
+    # apply pixel array to image
+    for i in range(PIXEL_HEIGHT):
+        for j in range(PIXEL_WIDTH):
+            #print(pixelArray[i][j])
+            image[i*PIXEL_SIZE:(i*PIXEL_SIZE)+PIXEL_SIZE, j*PIXEL_SIZE:(j*PIXEL_SIZE)+PIXEL_SIZE] = pixelArray[i][j]
+    
+    cv.putText(image, "Press 'D' to quit", (int(0.01*WIDTH), int(0.04*HEIGHT)), cv.FONT_HERSHEY_TRIPLEX, 1, (255,255,255), thickness=2)
+    cv.imshow("Animated Background", image)
+
+    time.sleep(0.05) # slows down the animation by adding 50ms second delay between frame generation
+
+    if cv.waitKey(20) & 0xFF==ord('d'): # press 'D' to end
+        break
+
+cv.destroyAllWindows()
