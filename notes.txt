@@ -1,0 +1,33 @@
+Resources:
+	- Bash Script Reference https://www.taniarascia.com/how-to-create-and-use-bash-scripts/
+	- Bash Reference https://github.com/Idnan/bash-guide
+	- OpenCV https://docs.opencv.org/4.x/
+	- OpenCV display image tutorial https://docs.opencv.org/4.x/db/deb/tutorial_display_image.html
+	- OpenCV video tutorial https://youtu.be/oXlwWbU8l2o
+	- How to use webcams on Raspberry Pi (python) https://raspberrypi-guide.github.io/electronics/using-usb-webcams
+	- How to run script on startup (Linux) https://raspberrypi-guide.github.io/programming/run-script-on-boot
+	- How to execute scripts remotely https://linuxconfig.org/executing-commands-remotely-with-ssh-and-output-redirection
+	
+Testbench:
+	- OS: Raspberry Pi OS (64 bit)
+	- user: collin
+	- pass: password
+	- IP 192.168.1.183
+	- use "sudo raspi-config" for general settings
+	- use "sudo dpkg-reconfigure console-setup" for console text settings
+
+
+OpenCV:
+	- VideoCaptureProperties: https://docs.opencv.org/3.4/d4/d15/group__videoio__flags__base.html#gaeb8dd9c89c10a5c63c139bf7c4f5704d
+		- these can be accessed using capture.get and capture.set
+		- for example, capture.get(3) will return the width
+	- working with webcam resolutions: https://www.learnpythonwithrune.org/find-all-possible-webcam-resolutions-with-opencv-in-python/
+	
+	
+-disable screen blanking
+-make sure python is up to date (python --version)
+-install: 
+	opencv for python (pip install opencv-contrib-python)
+	cxzone (pip install cvzone)
+	mediapipe (pip install mediapipe)
+	
