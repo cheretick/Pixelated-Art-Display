@@ -1,16 +1,15 @@
-from asyncio.windows_events import NULL
 import cv2 as cv
 from cvzone.SelfiSegmentationModule import SelfiSegmentation
 import pickle
 
 PIXEL_SIZE = 15
-# set width and height to NULL to automatically set resolution
-width = NULL
-height = NULL
+# set width and height to None to automatically set resolution
+width = 10
+height = 10
 capture = cv.VideoCapture(0)
 
 
-if width == NULL or height == NULL:
+if width == None or height == None:
     # opens resolutions.data and adds them to resolutions list (up to 1080p)
     resolutions = []
     with open('./resolutions.data', 'rb') as fileHandle:
