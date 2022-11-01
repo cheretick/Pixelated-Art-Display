@@ -41,7 +41,7 @@ def UTColors():
 
 def UTGradient():
     # OpenCV uses (blue, green, red)
-    gradientWeight = 0.4
+    gradientWeight = 0.8
     colors = [
         (74,36,0),      # Oxford Blue           
         (101,50,0),     # Dark Midnight Blue    

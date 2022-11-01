@@ -4,7 +4,7 @@ PIXEL_SIZE = 15
 APPLY_BACKGROUND_SUBTRACTOR = True
 APPLY_PIXELATE = True
 
-capture = cv.VideoCapture(1) # try cv.VideoCapture(0) if you aren't getting input
+capture = cv.VideoCapture(0) # try cv.VideoCapture(0) if you aren't getting input
 print("Capture Input--\theight: " + str(capture.get(4)) + "\twidth: " 
     + str(capture.get(3)) + "\tframerate: " + str(capture.get(5)))
 

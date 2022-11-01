@@ -87,7 +87,7 @@ while True:
     cv.putText(image, "Press 'D' to quit", (int(0.01*WIDTH), int(0.04*HEIGHT)), cv.FONT_HERSHEY_TRIPLEX, 1, (255,255,255), thickness=2)
     cv.imshow("Animated Background", image)
 
-    time.sleep(0.05) # slows down the animation by adding 50ms second delay between frame generation
+    #time.sleep(0.05) # slows down the animation by adding 50ms second delay between frame generation
 
     if cv.waitKey(20) & 0xFF==ord('d'): # press 'D' to end
         break
