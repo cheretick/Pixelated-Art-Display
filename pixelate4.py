@@ -1,5 +1,4 @@
 import cv2 as cv
-from cvzone.SelfiSegmentationModule import SelfiSegmentation
 import pickle
 import numpy as np
 
