@@ -64,16 +64,16 @@ cv.namedWindow("Pixelate", cv.WINDOW_NORMAL)
 #low = np.array([0,0,0])
 #high = np.array([25,25,25])
 grey = np.zeros(background.shape, np.uint8)
-grey.fill(50)
+grey.fill(20)
 
-out = cv.VideoWriter('videos\girlExample.mp4', cv.VideoWriter_fourcc(*'MP4V'), 29.97, (int(width),int(height)))
+#out = cv.VideoWriter('videos\girlExample2.mp4', cv.VideoWriter_fourcc(*'MP4V'), 29.97, (int(width),int(height)))
 
 while(True):
     isTrue, frame = capture.read()
-    isTrue, videoCap = video.read() 
+    #isTrue, videoCap = video.read()  # uses video as input
 
     #videoCap = cv.resize(videoCap,(int(width),int(height)),fx=0,fy=0, interpolation = cv.INTER_CUBIC)
-    frame = videoCap
+    #frame = videoCap #inserts video into frame instead of webcam
 
     frame = foregroundFeed.apply(frame)
     mask = cv.inRange(frame, 0, 125)
@@ -95,19 +95,19 @@ while(True):
     # mirrors the frame
     camWithBG = cv.flip(camWithBG, 1)
 
-    #cv.imshow('Pixelate', camWithBG)
-    cv.imshow('video', videoCap)
+    cv.imshow('Pixelate', camWithBG)
+    #cv.imshow('video', videoCap)
     #cv.imshow('frame', frame)
     #cv.imshow('mask', mask)
     #cv.imshow('foreground', foregroundOnly)
     #cv.imshow('background', backgroundOnly)
 
-    out.write(camWithBG)
+    #out.write(camWithBG)
 
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 
 print("done!")
 capture.release()
-out.release()
+#out.release()
 cv.destroyAllWindows()

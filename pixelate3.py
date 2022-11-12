@@ -3,9 +3,10 @@ from cvzone.SelfiSegmentationModule import SelfiSegmentation
 import pickle
 
 PIXEL_SIZE = 15
-# set width and height to None to automatically set resolution
-width = 10
-height = 10
+# set width and height to 'None' to automatically set resolution
+# the webcam driver will likely select the closest available resolution when using a custom value
+width = None
+height = None
 capture = cv.VideoCapture(0)
 
 
