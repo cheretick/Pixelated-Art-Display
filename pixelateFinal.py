@@ -11,7 +11,7 @@ height = 360
 counter = random.randint(100,1000)
 if DEMO_MODE:
     counter = 0
-capture = cv.VideoCapture(0)
+capture = cv.VideoCapture(2)
 foregroundFeed = cv.createBackgroundSubtractorMOG2(history=500, varThreshold= 45, detectShadows=False) # defaults: 500, 16, True
 video = cv.VideoCapture("G:\\School\\2022 FALL\\ENGT 4050\\Pixelated-Art-Display\\videos\\" + str(videoNumber) + ".mp4")
 
@@ -49,6 +49,11 @@ grey.fill(25)
 # morphology fill size
 kernel = np.ones((PIXEL_SIZE, PIXEL_SIZE), np.uint8)
 
+# for plaque
+plaque = cv.imread("backgroundWithPlaque.jpg")
+plaque = cv.resize(plaque, (int(width), int(height)))
+plaqueCounter = 1
+
 while(True):
     if (counter > 0): # use webcam for input
         retCam, frame = capture.read()
@@ -59,6 +64,12 @@ while(True):
         foregroundOnly = cv.bitwise_and(grey, grey, mask = invMask)
         backgroundOnly = cv.bitwise_and(background, background, mask = mask)
         counter -= 1
+        if counter == 50:
+            if (random.randint(1,4) == 1): 
+                background = plaque
+            else:
+                background = cv.imread('generatedImages\generatedImage2.jpg')
+                background = cv.resize(background, (int(width), int(height)))
     else: # use prerecorded video as input
         retVideo, frame = video.read()
         if retVideo: 
@@ -68,7 +79,6 @@ while(True):
             invMask = cv.bitwise_not(mask)
             foregroundOnly = cv.bitwise_and(grey, grey, mask = mask)
             backgroundOnly = cv.bitwise_and(background, background, mask = invMask)
-
         else: # when video is over
             while videoNumber == previousVideo:
                 videoNumber = random.randint(1,12)
@@ -76,6 +86,14 @@ while(True):
             video = cv.VideoCapture("G:\\School\\2022 FALL\\ENGT 4050\\Pixelated-Art-Display\\videos\\" + str(videoNumber) + ".mp4")
             if not DEMO_MODE:
                 counter = random.randint(100,1000)
+            if DEMO_MODE:
+                if (random.randint(1,6) == 1) or (plaqueCounter == 0): 
+                    background = plaque
+                    plaqueCounter -= 1
+                else:
+                    background = cv.imread('generatedImages\generatedImage2.jpg')
+                    background = cv.resize(background, (int(width), int(height)))
+                    plaqueCounter = 1
     
     # combines foreground and background
     camWithBG = cv.add(foregroundOnly, backgroundOnly)
@@ -84,8 +102,6 @@ while(True):
     camWithBG = cv.flip(camWithBG, 1)
 
     cv.imshow('Pixelate', camWithBG)
-    
-    print(counter)
 
     if cv.waitKey(10) & 0xFF == ord('d'):
         DEMO_MODE = True
