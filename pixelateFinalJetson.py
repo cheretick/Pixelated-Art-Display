@@ -27,6 +27,8 @@ height = capture.get(cv.CAP_PROP_FRAME_HEIGHT)
 # get background image
 background = cv.imread('/home/collin/Pixelated-Art-Display/generatedImage.jpg')
 background = cv.resize(background, (int(width), int(height)))
+if UPSIDEDOWN_MODE:
+    background = cv.flip(background, 1)
 
 def pixelate(pixelSize, frame):
     height = int(frame.shape[0])
@@ -54,6 +56,8 @@ kernel = np.ones((PIXEL_SIZE, PIXEL_SIZE), np.uint8)
 plaque = cv.imread("/home/collin/Pixelated-Art-Display/backgroundWithPlaque.jpg")
 plaque = cv.resize(plaque, (int(width), int(height)))
 plaqueCounter = 1
+if UPSIDEDOWN_MODE:
+    plaque = cv.flip(plaque, 1)
 
 while(True):
     if (counter > 0): # use webcam for input
