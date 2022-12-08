@@ -25,10 +25,10 @@ width = capture.get(cv.CAP_PROP_FRAME_WIDTH)
 height = capture.get(cv.CAP_PROP_FRAME_HEIGHT)
 
 # get background image
-background = cv.imread('/home/collin/Pixelated-Art-Display/generatedImage.jpg')
-background = cv.resize(background, (int(width), int(height)))
+backgroundImage = cv.imread('/home/collin/Pixelated-Art-Display/generatedImage.jpg')
+backgroundImage = cv.resize(backgroundImage, (int(width), int(height)))
 if UPSIDEDOWN_MODE:
-    background = cv.flip(background, 1)
+    backgroundImage = cv.flip(backgroundImage, 1)
 
 def pixelate(pixelSize, frame):
     height = int(frame.shape[0])
@@ -46,7 +46,7 @@ cv.namedWindow("Pixelate", cv.WINDOW_NORMAL)
 cv.setWindowProperty("Pixelate", cv.WND_PROP_FULLSCREEN, cv.WINDOW_FULLSCREEN)
 
 # foreground color
-grey = np.zeros(background.shape, np.uint8)
+grey = np.zeros(backgroundImage.shape, np.uint8)
 grey.fill(25)
 
 # morphology fill size
@@ -75,8 +75,7 @@ while(True):
             if (random.randint(1,5) == 1): 
                 background = plaque
             else:
-                background = cv.imread('/home/collin/Pixelated-Art-Display/generatedImage.jpg')
-                background = cv.resize(background, (int(width), int(height)))
+                background = backgroundImage
     else: # use prerecorded video as input
         retVideo, frame = video.read()
         if retVideo: 
@@ -99,8 +98,7 @@ while(True):
                     background = plaque
                     plaqueCounter -= 1
                 else:
-                    background = cv.imread('/home/collin/Pixelated-Art-Display/generatedImage.jpg')
-                    background = cv.resize(background, (int(width), int(height)))
+                    background = backgroundImage
                     plaqueCounter = 1
 
     # combines foreground and background
