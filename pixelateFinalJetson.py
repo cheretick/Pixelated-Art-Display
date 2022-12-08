@@ -29,6 +29,7 @@ backgroundImage = cv.imread('/home/collin/Pixelated-Art-Display/generatedImage.j
 backgroundImage = cv.resize(backgroundImage, (int(width), int(height)))
 if UPSIDEDOWN_MODE:
     backgroundImage = cv.flip(backgroundImage, 1)
+background = backgroundImage
 
 def pixelate(pixelSize, frame):
     height = int(frame.shape[0])
